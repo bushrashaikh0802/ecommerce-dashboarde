@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>E-commerce Sales Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .filter-form {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .kpi-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .kpi {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            width: 22%;
+        }
+        .chart {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>E-commerce Sales Insights Dashboard</h1>
+
+        <form method="get" class="filter-form">
+            <label>Start Date:</label>
+            <input type="date" name="start_date" value="{{ start_date }}">
+            <label>End Date:</label>
+            <input type="date" name="end_date" value="{{ end_date }}">
+            <button type="submit">Filter</button>
+        </form>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% else %}
+            <div class="kpi-container">
+                <div class="kpi">
+                    <h3>Total Revenue</h3>
+                    <p>{{ total_revenue }}</p>
+                </div>
+                <div class="kpi">
+                    <h3>Total Orders</h3>
+                    <p>{{ total_orders }}</p>
+                </div>
+                <div class="kpi">
+                    <h3>Unique Customers</h3>
+                    <p>{{ unique_customers }}</p>
+                </div>
+                <div class="kpi">
+                    <h3>Avg Order Value</h3>
+                    <p>{{ avg_order_value }}</p>
+                </div>
+            </div>
+
+            <div class="chart">{{ plot1|safe }}</div>
+            <div class="chart">{{ plot2|safe }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
